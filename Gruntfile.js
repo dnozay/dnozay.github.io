@@ -277,6 +277,13 @@ module.exports = function (grunt) {
           cwd: '<%= yeoman.app %>/css',
           src: '**/*.css',
           dest: '.tmp/css'
+        },{
+          // for grunt serve to work properly
+          expand: true,
+          flatten: true,
+          cwd: '<%= yeoman.app %>',
+          src: ['_bower_components/**/fonts/*.*'],
+          dest: '<%= yeoman.app %>/fonts'
         }]
       }
     },
