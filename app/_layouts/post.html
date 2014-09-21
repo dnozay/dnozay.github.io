@@ -1,0 +1,12 @@
+---
+layout: default
+---
+<div class="page-header">
+  <h1>{{page.title}} <small>{{ page.date | date_to_string }} <a href="{{ page.url }}"><i class="fa fa-link"></i></a></small></h1>
+</div>
+
+<div class="post">
+{{ content }}
+</div>
+
+{% include pager.html %}

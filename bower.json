@@ -1,0 +1,8 @@
+{
+  "name": "dnozaygithubio",
+  "version": "0.0.0",
+  "dependencies": {
+    "sass-bootstrap": "~3.0.2",
+    "font-awesome": "~4.2.0"
+  }
+}

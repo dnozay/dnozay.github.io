@@ -1,0 +1,45 @@
+# Jekyll configuration precedence:
+# 1. Gruntfile task
+# 2. config.build.yml
+# 3. config.yml
+
+name: dnozay.github.io
+description: random notes.
+author:
+  name: Damien Nozay
+  email: dnozay@users.noreply.github.com
+  linkedin: http://www.linkedin.com/in/damiennozay
+  github: https://github.com/dnozay/
+  stackoverflow: https://stackoverflow.com/users/1733117/dnozay
+  stackexchange: http://stackexchange.com/users/543818/dnozay
+copyright:
+  year: 2014
+
+paginate: 5
+
+# Grunt handles images and assets.
+exclude: ['img', 'css', 'js', 'fonts',
+          '**.png', '**.jpg', '**.jpeg', '**.gif', '**.webp', '**.svg', '**.ico']
+
+include: ['.htaccess']
+
+# _config.build.yml sets future and show_drafts to false on `grunt build`
+future: true
+show_drafts: true
+
+# Markdown library
+markdown: kramdown
+#   auto_ids: true
+#   footnote_nr: 1
+#   entity_output: as_char
+#   toc_levels: 1..6
+#   use_coderay: false
+#   coderay:
+#     coderay_wrap: div
+#     coderay_line_numbers: inline
+#     coderay_line_numbers_start: 1
+#     coderay_tab_width: 4
+#     coderay_bold_every: 10
+#     coderay_css: style
+
+pygments: true

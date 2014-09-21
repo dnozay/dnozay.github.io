@@ -1,0 +1,30 @@
+
+/* customize bootstrap here */
+$icon-font-path: '/_bower_components/sass-bootstrap/fonts/';
+@import 'sass-bootstrap/lib/bootstrap';
+
+$footer-height: 160px;
+
+
+.navbar-static-top {
+  margin-bottom: 19px;
+}
+
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: $footer-height + 20;
+}
+.footer {
+  padding-top: 20px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: $footer-height;
+  background-color: $gray-lighter;
+}

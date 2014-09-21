@@ -1,0 +1,33 @@
+---
+layout: default
+title: dnozay.github.io
+---
+{% for post in paginator.posts %}
+<div class="panel panel-default">
+  <div class="panel-heading">
+  <h1 class="panel-title">{{post.title}} <small>{{ post.date | date_to_string }} <a href="{{ post.url }}"><i class="fa fa-link"></i></a></small></h1>
+  </div>
+  <div class="panel-body">
+    <div class="post">
+    {{ post.content }}
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+{% if paginator.total_pages > 1 %}
+<div class="pagination">
+  <ul class="pager">
+  {% if paginator.previous_page %}
+    <li class="previous"><a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}"><i class="fa fa-arrow-left"></i> Previous</a></li>
+  {% else %}
+    <li class="previous disabled"><a href="#"><i class="fa fa-arrow-left"></i> Previous</a></li>
+  {% endif %}
+  {% if paginator.next_page %}
+    <li class="next"><a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Next <i class="fa fa-arrow-right"></i></a>
+  {% else %}
+    <li class="next disabled"><a href="#">Next <i class="fa fa-arrow-right"></i></a></li>
+  {% endif %}
+  </ul>
+</div>
+{% endif %}
