@@ -220,7 +220,8 @@ module.exports = function (grunt) {
     imagemin: {
       dist: {
         options: {
-          progressive: true
+          progressive: true,
+          cache: false
         },
         files: [{
           expand: true,
@@ -254,6 +255,9 @@ module.exports = function (grunt) {
             'fonts/**/*',
             // Like Jekyll, exclude files & folders prefixed with an underscore.
             '!**/_*{,/**}',
+            '../LICENSE',
+            '../README.md',
+            '_config.yml',
             // Explicitly add any files your site needs for distribution here.
             //'_bower_components/jquery/jquery.js',
             //'favicon.ico',
@@ -395,7 +399,7 @@ module.exports = function (grunt) {
     'autoprefixer:dist',
     'cssmin',
     'uglify',
-    'imagemin',
+//    'imagemin',
     'svgmin',
     'filerev',
     'usemin',
