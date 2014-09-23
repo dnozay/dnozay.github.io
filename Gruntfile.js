@@ -142,6 +142,11 @@ module.exports = function (grunt) {
           cwd: '<%= yeoman.dist %>/css',
           src: '**/*.css',
           dest: '<%= yeoman.dist %>/css'
+        },{
+          expand: true,
+          cwd: '.tmp/css',
+          src: '**/*.css',
+          dest: '.tmp/css'
         }]
       },
       server: {
