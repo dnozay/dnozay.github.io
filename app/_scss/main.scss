@@ -24,6 +24,14 @@ img, .gist {
   -webkit-border-radius: 4px 4px 4px 4px;
   border-radius: 4px 4px 4px 4px;
 }
+div.container > div.post blockquote:before {
+  content:      '\f10d';
+  font-family:  FontAwesome;
+  float:        left;
+  font-size:    ($font-size-base * 2);
+  margin-left: -(($font-size-base + $line-height-computed) * 2);
+  margin-top:  -($line-height-computed / 2);
+}
 .footer {
   padding-top: 20px;
   position: absolute;
