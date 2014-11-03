@@ -1,14 +1,10 @@
 
-/* customize bootstrap here */
+@import './variables.scss';
 @import 'sass-bootstrap/lib/bootstrap';
-
-$footer-height: 160px;
-
 
 .navbar-static-top {
   margin-bottom: 19px;
 }
-
 
 /* Sticky footer styles
 -------------------------------------------------- */
