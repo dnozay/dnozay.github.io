@@ -30,23 +30,18 @@ function _c(template) {
   return _.template(template, options);
 }
 
-// build html files
-gulp.task('html', function () {
-    var paths = [ _c('<%= jekyll.dest %>/**/*.html') ];
-    var searchPath = [
-      _c('<%= yeoman.app %>'),
-      _c('<%= jekyll.dest %>'),
-      _c('<%= yeoman.app %>/_bower_components')
-    ];
-    var assets = useref.assets({searchPath: searchPath});
-    return gulp.src(paths)
-        .pipe(assets)
-        .pipe(gulpif('*.js', uglify()))
-        .pipe(gulpif('*.css', cssmin()))
-        .pipe(assets.restore())
-        .pipe(useref())
-        .pipe(gulp.dest(options.jekyll.dest));
+// build css files
+gulp.task('styles', function() {
+  var paths = [ _c('<%= yeoman.app %>/**/*.{sass,scss}') ];
+  var loadPath = [ _c('<%= yeoman.app %>/_bower_components') ];
+  return gulp.src(paths)
+    .pipe(sass({ sourcemap:false, loadPath: loadPath}))
+    .pipe(rename({dirname:'css', verbose: false}))
+    .pipe(gulp.dest(options.jekyll.dest))
+    .pipe(gulp.dest(options.yeoman.dist));
 });
+
+// build html files
 gulp.task('jekyll:build', function () {
     var jekyll = spawn('jekyll', ['build',
       '--source',      _c('<%= yeoman.app %>'),
@@ -65,7 +60,27 @@ gulp.task('jekyll:build', function () {
         console.log('-- Finished Jekyll Build --')
     })
 });
-gulp.task('jekyll:serve', function () {
+
+// replace assets references
+gulp.task('html', ['jekyll:build','styles'], function () {
+    var paths = [ _c('<%= jekyll.dest %>/**/*.html') ];
+    var searchPath = [
+      _c('<%= yeoman.app %>'),
+      _c('<%= jekyll.dest %>'),
+      _c('<%= yeoman.app %>/_bower_components')
+    ];
+    var assets = useref.assets({searchPath: searchPath});
+    return gulp.src(paths)
+        .pipe(assets)
+        .pipe(gulpif('*.js', uglify()))
+        .pipe(gulpif('*.css', cssmin()))
+        .pipe(assets.restore())
+        .pipe(useref())
+        .pipe(gulp.dest(options.jekyll.dest));
+});
+
+// serve
+gulp.task('jekyll:serve', ['html'], function () {
     var jekyll = spawn('jekyll', ['serve', '--skip-initial-build',
       '--source',      _c('<%= yeoman.app %>'),
       '--destination', _c('<%= jekyll.dest %>'),
@@ -82,17 +97,6 @@ gulp.task('jekyll:serve', function () {
     jekyll.on('exit', function (code) {
         console.log('-- Finished Jekyll Build --')
     })
-});
-
-// build css files
-gulp.task('styles', function() {
-  var paths = [ _c('<%= yeoman.app %>/**/*.{sass,scss}') ];
-  var loadPath = [ _c('<%= yeoman.app %>/_bower_components') ];
-  return gulp.src(paths)
-    .pipe(sass({ sourcemap:false, loadPath: loadPath}))
-    .pipe(rename({dirname:'css', verbose: false}))
-    .pipe(gulp.dest(options.jekyll.dest))
-    .pipe(gulp.dest(options.yeoman.dist));
 });
 
 // default task
