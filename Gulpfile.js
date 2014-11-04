@@ -4,7 +4,7 @@ var serve = require('gulp-serve');
 var spawn = require('child_process').spawn;
 var byline = require('byline');
 var chalk = require('chalk');
-
+var _ = require('lodash');
 
 var options = {
   yeoman: {
@@ -17,11 +17,17 @@ var options = {
   }
 };
 
+// poor-man's grunt-template
+function _c(template) {
+  return _.template(template, options);
+}
+
+// build html files
 gulp.task('jekyll:serve', function () {
     var jekyll = spawn('jekyll', ['serve', '--watch',
-      '--source', options.yeoman.app,
-      '--destination', options.jekyll.dest,
-      '--config', options.jekyll.config,
+      '--source',      _c('<%= yeoman.app %>'),
+      '--destination', _c('<%= jekyll.dest %>'),
+      '--config',      _c('<%= jekyll.config %>'),
       '--verbose']);
     var line_out = byline(jekyll.stdout);
     var line_err = byline(jekyll.stderr);
@@ -36,4 +42,5 @@ gulp.task('jekyll:serve', function () {
     })
 });
 
+// default task
 gulp.task('default', ['jekyll:serve']);
