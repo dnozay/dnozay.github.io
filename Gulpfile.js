@@ -41,6 +41,15 @@ gulp.task('styles', function() {
     .pipe(gulp.dest(options.yeoman.dist));
 });
 
+// copy images and fonts
+gulp.task('images', function() {
+  var paths = [ _c('<%= yeoman.app %>/img/**/*.{jpg,jpeg,png}') ];
+  var base = _c('<%= yeoman.app %>');
+  return gulp.src(paths, {base: base})
+    .pipe(gulp.dest(options.jekyll.dest))
+    .pipe(gulp.dest(options.yeoman.dist));
+});
+
 // build html files
 gulp.task('jekyll:build', function () {
     var jekyll = spawn('jekyll', ['build',
