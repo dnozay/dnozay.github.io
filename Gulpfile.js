@@ -49,6 +49,13 @@ gulp.task('images', function() {
     .pipe(gulp.dest(options.jekyll.dest))
     .pipe(gulp.dest(options.yeoman.dist));
 });
+gulp.task('fonts', function() {
+  var paths = [ _c('<%= yeoman.app %>/**/fonts/**/*.{eot*,otf,svg,ttf,woff}') ];
+  return gulp.src(paths)
+    .pipe(rename({dirname:'fonts', verbose: false}))
+    .pipe(gulp.dest(options.jekyll.dest))
+    .pipe(gulp.dest(options.yeoman.dist));
+});
 
 // build html files
 gulp.task('jekyll:build', function () {
