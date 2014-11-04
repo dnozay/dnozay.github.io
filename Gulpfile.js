@@ -42,14 +42,14 @@ gulp.task('styles', function() {
 });
 
 // copy images and fonts
-gulp.task('images', function() {
+gulp.task('images', ['stage'], function() {
   var paths = [ _c('<%= yeoman.app %>/img/**/*.{jpg,jpeg,png}') ];
   var base = _c('<%= yeoman.app %>');
   return gulp.src(paths, {base: base})
     .pipe(gulp.dest(options.jekyll.dest))
     .pipe(gulp.dest(options.yeoman.dist));
 });
-gulp.task('fonts', function() {
+gulp.task('fonts', ['stage'], function() {
   var paths = [ _c('<%= yeoman.app %>/**/fonts/**/*.{eot*,otf,svg,ttf,woff}') ];
   return gulp.src(paths)
     .pipe(rename({dirname:'fonts', verbose: false}))
@@ -58,7 +58,7 @@ gulp.task('fonts', function() {
 });
 
 // build html files
-gulp.task('jekyll:build', function () {
+gulp.task('jekyll:build', function (callback) {
     var jekyll = spawn('jekyll', ['build',
       '--source',      _c('<%= yeoman.app %>'),
       '--destination', _c('<%= jekyll.dest %>'),
@@ -73,7 +73,8 @@ gulp.task('jekyll:build', function () {
         console.log(chalk.red('[jekyll] ') + data);
     });
     jekyll.on('exit', function (code) {
-        console.log('-- Finished Jekyll Build --')
+        console.log(chalk.yellow('[jekyll] done.'));
+        callback();
     })
 });
 
@@ -95,8 +96,12 @@ gulp.task('html', ['jekyll:build','styles'], function () {
         .pipe(gulp.dest(options.jekyll.dest));
 });
 
+gulp.task('stage', ['html'], function() {
+    // do nothing. this is only for task ordering
+});
+
 // serve
-gulp.task('jekyll:serve', ['html'], function () {
+gulp.task('jekyll:serve', ['html','images','fonts'], function (callback) {
     var jekyll = spawn('jekyll', ['serve', '--skip-initial-build',
       '--source',      _c('<%= yeoman.app %>'),
       '--destination', _c('<%= jekyll.dest %>'),
@@ -111,7 +116,8 @@ gulp.task('jekyll:serve', ['html'], function () {
         console.log(chalk.red('[jekyll] ') + data);
     });
     jekyll.on('exit', function (code) {
-        console.log('-- Finished Jekyll Build --')
+        console.log(chalk.yellow('[jekyll] done.'));
+        callback();
     })
 });
 
