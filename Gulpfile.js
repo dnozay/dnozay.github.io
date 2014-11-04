@@ -5,6 +5,8 @@ var spawn = require('child_process').spawn;
 var byline = require('byline');
 var chalk = require('chalk');
 var _ = require('lodash');
+var sass = require('gulp-ruby-sass');
+
 
 var options = {
   yeoman: {
@@ -40,6 +42,16 @@ gulp.task('jekyll:serve', function () {
     jekyll.on('exit', function (code) {
         console.log('-- Finished Jekyll Build --')
     })
+});
+
+// build css files
+gulp.task('styles', function() {
+  var paths = [ _c('<%= yeoman.app %>/**/*.{sass,scss}') ];
+  var loadPath = [ _c('<%= yeoman.app %>/_bower_components') ];
+  return gulp.src(paths)
+    .pipe(sass({ sourcemap:false, loadPath: loadPath}))
+    .pipe(gulp.dest(options.jekyll.dest))
+    .pipe(gulp.dest(options.yeoman.dist));
 });
 
 // default task
