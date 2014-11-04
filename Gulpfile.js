@@ -6,7 +6,8 @@ var byline = require('byline');
 var chalk = require('chalk');
 var _ = require('lodash');
 var sass = require('gulp-ruby-sass');
-
+var rename = require('gulp-rename');
+var debug = require('gulp-debug');
 
 var options = {
   yeoman: {
@@ -50,6 +51,7 @@ gulp.task('styles', function() {
   var loadPath = [ _c('<%= yeoman.app %>/_bower_components') ];
   return gulp.src(paths)
     .pipe(sass({ sourcemap:false, loadPath: loadPath}))
+    .pipe(rename({dirname:'css', verbose: false}))
     .pipe(gulp.dest(options.jekyll.dest))
     .pipe(gulp.dest(options.yeoman.dist));
 });
