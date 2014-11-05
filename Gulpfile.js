@@ -10,6 +10,7 @@ var lazypipe = require('lazypipe');
 var cssmin = require('gulp-cssmin');
 var debug = require('gulp-debug');
 var gulpif = require('gulp-if');
+var htmlmin = require('gulp-htmlmin');
 var rename = require('gulp-rename');
 var sass = require('gulp-ruby-sass');
 var serve = require('gulp-serve');
@@ -115,6 +116,12 @@ gulp.task('stage', ['html:build'], function() {
     var source      = [ _c('<%= jekyll.build %>/**/*') ];
     var destination = _c('<%= yeoman.dist %>');
     return gulp.src(source)
+        .pipe(gulpif('*.html', htmlmin({
+          collapseWhitespace: true,
+          collapseBooleanAttributes: true,
+          removeAttributeQuotes: true,
+          removeRedundantAttributes: true
+        })))
         .pipe(gulp.dest(destination));
 });
 
