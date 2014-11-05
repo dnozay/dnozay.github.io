@@ -5,6 +5,7 @@ var chalk = require('chalk');
 var _ = require('lodash');
 var gulp = require('gulp');
 var browserSync = require('browser-sync');
+var lazypipe = require('lazypipe');
 
 var cssmin = require('gulp-cssmin');
 var debug = require('gulp-debug');
@@ -22,6 +23,7 @@ var options = {
   },
   jekyll: {
     stage: '.jekyll',
+    build: '.jekyll-dest',
     config: '_config.yml,_config.build.yml'
   }
 };
@@ -62,7 +64,7 @@ gulp.task('fonts', ['stage'], function() {
 gulp.task('html:build', ['html:prep'], function (callback) {
     var jekyll = spawn('jekyll', ['build',
       '--source',      _c('<%= jekyll.stage %>'),
-      '--destination', _c('<%= yeoman.dist %>'),
+      '--destination', _c('<%= jekyll.build %>'),
       '--config',      _c('<%= jekyll.config %>'),
       '--verbose']);
     var line_out = byline(jekyll.stdout);
@@ -81,6 +83,13 @@ gulp.task('html:build', ['html:prep'], function (callback) {
 
 // replace assets references
 gulp.task('html:prep', ['styles'], function () {
+    var cssTasks = lazypipe()
+      .pipe(uglify)
+      .pipe(gulp.dest, options.yeoman.dist);
+    var jsTasks =  lazypipe()
+      .pipe(cssmin)
+      .pipe(gulp.dest, options.yeoman.dist);
+
     var paths = [
       _c('<%= yeoman.app %>/**/*.{html,yml,md,mkd,markdown}'),
       _c('!<%= yeoman.app %>/_bower_components/**/*')
@@ -93,19 +102,24 @@ gulp.task('html:prep', ['styles'], function () {
     var assets = useref.assets({searchPath: searchPath});
     return gulp.src(paths)
         .pipe(assets)
-        .pipe(gulpif('*.js', uglify()))
-        .pipe(gulpif('*.css', cssmin()))
+        .pipe(gulpif('*.js', cssTasks()))
+        .pipe(gulpif('*.css', jsTasks()))
         .pipe(assets.restore())
         .pipe(useref())
         .pipe(gulp.dest(options.jekyll.stage));
 });
 
+// since jekyll likes to clobber destination
+// we need to specify a temp directory as a destination.
 gulp.task('stage', ['html:build'], function() {
-    // do nothing. this is only for task ordering
+    var source      = [ _c('<%= jekyll.build %>/**/*') ];
+    var destination = _c('<%= yeoman.dist %>');
+    return gulp.src(source)
+        .pipe(gulp.dest(destination));
 });
 
 // serve
-gulp.task('serve', ['html:build','images','fonts'], function() {
+gulp.task('serve', ['stage','images','fonts'], function() {
     browserSync({
         server: {
             baseDir: _c('<%= yeoman.dist %>')
