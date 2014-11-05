@@ -5,6 +5,7 @@
   "description": "Yeoman workflow for dnozay.github.io",
   "dependencies": {},
   "devDependencies": {
+    "browser-sync": "^1.6.3",
     "byline": "^4.1.1",
     "chalk": "^0.5.1",
     "grunt": "~0.4.1",
