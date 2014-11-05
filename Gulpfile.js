@@ -17,6 +17,7 @@ var rename = require('gulp-rename');
 var revall = require('gulp-rev-all');
 var sass = require('gulp-ruby-sass');
 var serve = require('gulp-serve');
+var svgmin = require('gulp-svgmin');
 var uglify = require('gulp-uglify');
 var useref = require('gulp-useref');
 
@@ -54,6 +55,7 @@ gulp.task('images', ['stage'], function() {
   var base = _c('<%= yeoman.app %>');
   return gulp.src(paths, {base: base})
     .pipe(rename({dirname:'img', verbose: false}))
+    .pipe(gulpif('*.svg', svgmin()))
     .pipe(gulp.dest(options.yeoman.stage));
 });
 gulp.task('fonts', ['stage'], function() {
@@ -124,10 +126,10 @@ gulp.task('stage', ['html:build'], function() {
     var destination = _c('<%= yeoman.stage %>');
     return gulp.src(source)
         .pipe(gulpif('*.html', htmlmin({
-          // collapseWhitespace: true,
-          // collapseBooleanAttributes: true,
-          // removeAttributeQuotes: true,
-          // removeRedundantAttributes: true
+          collapseWhitespace: true,
+          collapseBooleanAttributes: true,
+          removeAttributeQuotes: true,
+          removeRedundantAttributes: true
         })))
         .pipe(gulp.dest(destination));
 });
