@@ -128,7 +128,7 @@ gulp.task('stage', ['html:build'], function() {
         .pipe(gulpif('*.html', htmlmin({
           collapseWhitespace: true,
           collapseBooleanAttributes: true,
-          removeAttributeQuotes: true,
+          // removeAttributeQuotes: true,
           removeRedundantAttributes: true
         })))
         .pipe(gulp.dest(destination));
@@ -147,8 +147,19 @@ gulp.task('filerev', ['stage','images','fonts'], function() {
         .pipe(gulp.dest(dist));
 });
 
+gulp.task('copy', function() {
+    var dist = _c('<%= yeoman.dist %>');
+    return gulp.src([
+          'LICENSE',
+          'README.md',
+          _c('<%= yeoman.app %>/_config.yml')
+      ])
+      .pipe(rename({dirname:'', verbose: false}))
+      .pipe(gulp.dest(dist));
+});
+
 // serve
-gulp.task('serve', ['filerev'], function() {
+gulp.task('serve', ['filerev','copy'], function() {
     browserSync({
         server: {
             baseDir: _c('<%= yeoman.dist %>')
