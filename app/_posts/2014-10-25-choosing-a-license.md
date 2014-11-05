@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Choosing a license
-date: 2014-10-25 17:44:58
+date: '2014-10-25 17:44:58'
 categories: licensing
 tags: licensing,copying,sharing
 ---

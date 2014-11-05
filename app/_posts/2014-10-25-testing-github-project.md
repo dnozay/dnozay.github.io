@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Testing your GitHub project.
-date: 2014-10-25 15:45:10
+date: '2014-10-25 15:45:10'
 categories: testing
 tags: testing,tox,travis,github,ecosystem
 ---

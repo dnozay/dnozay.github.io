@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Font Awesome."
-date:   2014-09-21 02:32:01
+date: '2014-09-21 02:32:01'
 categories: frontend
 ---
 

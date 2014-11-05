@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Building a blog on github. part 1."
-date:   2014-09-21 15:37:38
+date: '2014-09-21 15:37:38'
 categories: howto
 ---
 

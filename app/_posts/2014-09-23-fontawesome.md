@@ -1,7 +1,7 @@
 ---
 layout: post
 title: fontawesome cheatsheet
-date: 2014-09-23 02:07:30
+date: '2014-09-23 02:07:30'
 categories: cheatsheet
 ---
 [FontAwesome](http://fontawesome.io/) is just great! Here are the html entities used for
