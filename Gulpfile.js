@@ -9,6 +9,7 @@ var lazypipe = require('lazypipe');
 
 var cssmin = require('gulp-cssmin');
 var debug = require('gulp-debug');
+var filerev = require('gulp-rev');
 var gulpif = require('gulp-if');
 var htmlmin = require('gulp-htmlmin');
 var rename = require('gulp-rename');
@@ -41,8 +42,7 @@ gulp.task('styles', function() {
   return gulp.src(paths)
     .pipe(sass({ sourcemap:false, loadPath: loadPath}))
     .pipe(rename({dirname:'css', verbose: false}))
-    .pipe(gulp.dest(options.jekyll.stage))
-    .pipe(gulp.dest(options.yeoman.dist));
+    .pipe(gulp.dest(options.jekyll.stage));
 });
 
 // copy images and fonts
@@ -86,9 +86,11 @@ gulp.task('html:build', ['html:prep'], function (callback) {
 gulp.task('html:prep', ['styles'], function () {
     var cssTasks = lazypipe()
       .pipe(uglify)
+      .pipe(filerev)
       .pipe(gulp.dest, options.yeoman.dist);
     var jsTasks =  lazypipe()
       .pipe(cssmin)
+      .pipe(filerev)
       .pipe(gulp.dest, options.yeoman.dist);
 
     var paths = [
