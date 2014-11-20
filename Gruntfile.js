@@ -18,6 +18,7 @@ module.exports = function (grunt) {
     // Configurable paths
     yeoman: {
       app: 'app',
+      stage: '.tmp',
       dist: 'dist'
     },
     watch: {
@@ -286,12 +287,12 @@ module.exports = function (grunt) {
           src: '**/*.css',
           dest: '.tmp/css'
         },{
-          // for grunt serve to work properly
+          // for grunt serve to serve bower deps before usemin.
           expand: true,
-          flatten: true,
-          cwd: '<%= yeoman.app %>',
-          src: ['_bower_components/**/fonts/*.*'],
-          dest: '<%= yeoman.app %>/fonts'
+          flatten: false,
+          cwd: '<%= yeoman.app %>/_bower_components',
+          src: ['**'],
+          dest: '<%= yeoman.stage %>'
         }]
       }
     },
