@@ -8,6 +8,7 @@ var browserSync = require('browser-sync');
 var lazypipe = require('lazypipe');
 var path = require('path');
 
+var autoprefixer = require('gulp-autoprefixer');
 var cssmin = require('gulp-cssmin');
 var debug = require('gulp-debug');
 var filerev = require('gulp-rev');
@@ -89,7 +90,8 @@ gulp.task('html:build', ['html:prep'], function (callback) {
 // replace assets references
 gulp.task('html:prep', ['styles'], function () {
     var cssTasks = lazypipe()
-      .pipe(cssmin);
+      .pipe(cssmin)
+      .pipe(autoprefixer);
     var jsTasks = lazypipe()
       .pipe(uglify);
 
