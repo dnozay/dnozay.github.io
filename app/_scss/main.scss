@@ -42,7 +42,7 @@ div.container > div.post blockquote:before {
 }
 
 /* definitions list */
-@for $i from 1 through 4 {
+@for $i from 1 through 12 {
   @media (min-width: $screen-xs-min) { dl.dl-xs-#{$i}-columns { column-count: $i; } }
   @media (min-width: $screen-sm-min) { dl.dl-sm-#{$i}-columns { column-count: $i; } }
   @media (min-width: $screen-md-min) { dl.dl-md-#{$i}-columns { column-count: $i; } }
@@ -53,5 +53,21 @@ div.container > div.post blockquote:before {
 h1, h2, h3, h4, h5, h6 {
   code {
     font-size: 90% !important;
+  }
+}
+
+/* used by icon cheatsheets */
+dl.icon-list {
+  dd {
+    height: 4em;
+  }
+  dd i.fa, dd i.glyphicon {
+    font-size: 3em;
+  }
+  dt:before {
+    content: "";
+    border-top: 4px solid gray;
+    opacity: 0.4;
+    display: block;
   }
 }

@@ -7,7 +7,7 @@ categories: cheatsheet
 [FontAwesome](http://fontawesome.io/) is just great! Here are the html entities used for
 the glyphs.
 
-<dl class="dl-horizontal dl-md-2-columns dl-lg-3-columns">
+<dl class="icon-list dl-md-3-columns dl-lg-4-columns">
 <dt>fa-glass</dt><dd><i class="fa fa-glass"></i>  = <samp>&amp;#xf000;</samp></dd>
 <dt>fa-music</dt><dd><i class="fa fa-music"></i>  = <samp>&amp;#xf001;</samp></dd>
 <dt>fa-search</dt><dd><i class="fa fa-search"></i>  = <samp>&amp;#xf002;</samp></dd>
