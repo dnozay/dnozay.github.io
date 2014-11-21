@@ -57,7 +57,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* used by icon cheatsheets */
-dl.icon-list {
+div.panel-body div.post dl.icon-list {
+  @include clearfix();
+}
+div.container > div.post dl.icon-list {
   dd {
     height: 4em;
   }
