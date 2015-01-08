@@ -23,6 +23,8 @@ img, .gist {
   -moz-border-radius: 4px 4px 4px 4px;
   -webkit-border-radius: 4px 4px 4px 4px;
   border-radius: 4px 4px 4px 4px;
+  border: solid 1px gray;
+  max-width: 100%;
 }
 div.container > div.post blockquote:before {
   content:      '\f10d';
