@@ -67,10 +67,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* used by icon cheatsheets */
-div.panel-body div.post dl.icon-list {
+div.post ul.icon-list {
+  column-width: 8em;
+  -webkit-column-width: 8em;
+  -moz-column-width: 8em;
+}
+div.panel-body div.post ul.icon-list {
   @include clearfix();
 }
-div.container > div.post dl.icon-list {
+div.container > div.post ul.icon-list {
+  li {
+    display: inline-block;
+  }
   dd {
     height: 4em;
   }
